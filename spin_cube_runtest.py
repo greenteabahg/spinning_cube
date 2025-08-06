@@ -7,7 +7,9 @@ pygame.init()
 PYGAME_DETECT_AVX2 = 1
 screen = pygame.display.set_mode((1280,720))
 clock = pygame.time.Clock()
-font = pygame.font.SysFont("Arial", 30) 
+font = pygame.font.SysFont("Arial", 30)
+#background for blit
+background = pygame.Surface((1280,720)) 
 
 # My three characters for three sides visible
 char_1 = "$"
@@ -19,9 +21,11 @@ text_surface_1 = font.render(char_1, True, (255,255,255)) #color, etc
 
 #3d place ??
 
-#og cube points : x = 560/710, y= 285/435, z = 0/150 
+#og cube points : x = 560/710, y= 285/435, z = 0/150
 
-vec_A = pygame.math.Vector3(490,210,0) 
+center_vec = pygame.math.Vector3(1,1,1) 
+
+vec_A = pygame.math.Vector3(490,210,0)
 vec_B = pygame.math.Vector3(790,210,0)
 vec_C = pygame.math.Vector3(490,510,0)
 vec_D = pygame.math.Vector3(790,510,0)
@@ -99,17 +103,26 @@ while running:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             sys.exit() 
-
+    #vec_A = pygame.math.Vector3(490,210,0)
+    vec_A_calcd = proj_1(vec_A)
+    #text_rect_A = text_surface_1.get_rect(center = vec_A_calcd)
+    #screen_blit(text_surface_1, text_rect_A)
+    center_vec = pygame.math.Vector3(1,1,1) 
     keys = pygame.key.get_pressed() 
     if keys[pygame.K_d]:
-        vec_A = vec_A.rotate_x(10) 
-        
+        #vec_A = vec_A.rotate_x(10) 
+        vec_A.update(vec_A.rotate_ip(1, center_vec))
+    text_rect_A = text_surface_1.get_rect(center = vec_A_calcd)   
+     
+    screen.blit(text_surface_1, text_rect_A) 
+   
+     
    # screen.fill("black")
       
 
     pygame.display.flip()
 
-   # clock.tick(60)
+    clock.tick(60)
 
 
 pygame.quit() 

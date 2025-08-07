@@ -25,8 +25,8 @@ def font_findah(vector):
 
 #dot math projection 3d to 2d
 def proj_1(vector):
-    mat_A = pygame.math.Vector3(1,0,.25)
-    mat_B = pygame.math.Vector3(0,1,.25)
+    mat_A = pygame.math.Vector3(1,0,.1)
+    mat_B = pygame.math.Vector3(0,1,.1)
     x = vector.dot(mat_A)
     y = vector.dot(mat_B)
     return pygame.math.Vector2(x,y)  
@@ -43,6 +43,12 @@ def erase(*args):
 def draw_char(char, *args):
     for arg in args:
         screen.blit(char, arg)
+
+
+#func for finding mean
+def mean(list):
+    avg = sum(list) / len(list)
+    return avg
 
 vec_A = pygame.math.Vector3(490,210,0) 
 vec_B = pygame.math.Vector3(790,210,0)
@@ -62,8 +68,15 @@ while running:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             sys.exit() 
+    
+    #making a dynamic center? 
+    x = mean([vec_A.x, vec_B.x, vec_C.x, vec_D.x, vec_E.x, vec_F.x, vec_G.x, vec_H.x])
 
-    center_v = pygame.math.Vector3(640,360,100) 
+    y = mean([vec_A.y, vec_B.y, vec_C.y, vec_D.y, vec_E.y, vec_F.y, vec_G.y, vec_H.y])
+
+    z = mean([vec_A.z, vec_B.z, vec_C.z, vec_D.z, vec_E.z, vec_F.z, vec_G.z, vec_H.z]) 
+    #og values for center_v = (640,360,100) 
+    center_v = pygame.math.Vector3(x,y,z) 
 
     #calc vectors
     vec_A_calcd = proj_1(vec_A) 

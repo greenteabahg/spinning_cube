@@ -34,7 +34,9 @@ def proj_1(vector):
 #func for blitting away background
 def erase(*args):
     for arg in args:
-        screen.blit(background, arg) 
+        arg = arg.inflate(750,750)  
+        screen.blit(screen, arg)  
+        
 
 
 #func for drawing points
@@ -125,6 +127,18 @@ while running:
         vec_G.update(vec_G.rotate(1, center_v))
         vec_H.update(vec_H.rotate(1, center_v))
 
+    if keys[pygame.K_a]:
+        vec_A.update(vec_A.rotate(-1, center_v)) 
+        vec_B.update(vec_B.rotate(-1, center_v))
+        vec_C.update(vec_C.rotate(-1, center_v))
+        vec_D.update(vec_D.rotate(-1, center_v)) 
+        vec_E.update(vec_E.rotate(-1, center_v))
+        vec_F.update(vec_F.rotate(-1, center_v))
+        vec_G.update(vec_G.rotate(-1, center_v))
+        vec_H.update(vec_H.rotate(-1, center_v))
+    
+    #eventually ill implement this bullshit with the w and s 
+
     text_rect_A = char_A_surf.get_rect(center=vec_A_calcd)
     text_rect_B = char_B_surf.get_rect(center=vec_B_calcd)
     text_rect_C = char_C_surf.get_rect(center=vec_C_calcd)
@@ -147,8 +161,20 @@ while running:
     screen.blit(char_G_surf, text_rect_G)
     screen.blit(char_H_surf, text_rect_H)
 
+    line_AB_rect =  pygame.draw.line(screen, (255,255,255), vec_A_calcd, vec_B_calcd) 
+    line_AC_rect = pygame.draw.line(screen, (255,255,255), vec_A_calcd, vec_C_calcd)
+    line_AE_rect = pygame.draw.line(screen, (255,255,255), vec_A_calcd, vec_E_calcd)  
+    line_BD_rect = pygame.draw.line(screen, (255,255,255), vec_B_calcd, vec_D_calcd)
+    line_BF_rect = pygame.draw.line(screen, (255,255,255), vec_B_calcd, vec_F_calcd)
+    line_CG_rect = pygame.draw.line(screen, (255,255,255), vec_C_calcd, vec_G_calcd) 
+    line_CD_rect = pygame.draw.line(screen, (255,255,255), vec_C_calcd, vec_D_calcd)
+    line_DH_rect = pygame.draw.line(screen, (255,255,255), vec_D_calcd, vec_H_calcd)
+    line_EG_rect = pygame.draw.line(screen, (255,255,255), vec_E_calcd, vec_G_calcd)
+    line_EF_rect = pygame.draw.line(screen, (255,255,255), vec_E_calcd, vec_F_calcd)
+    line_FH_rect = pygame.draw.line(screen, (255,255,255), vec_F_calcd, vec_H_calcd) 
+    line_GH_rect = pygame.draw.line(screen, (255,255,255), vec_G_calcd, vec_H_calcd) 
     pygame.display.flip()
-
+    pygame.display.update()
     clock.tick(60)
 
 pygame.quit() 
